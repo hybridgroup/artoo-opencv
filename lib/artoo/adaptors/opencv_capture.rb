@@ -17,8 +17,8 @@ module Artoo
       # @return [Boolean]
       def connect
         require 'opencv' unless defined?(::OpenCV) 
-        source = port.port
-        if source.to_s.empty? || source == "none"
+        source = additional_params[:source] || ""
+        if source.to_s.empty?
           @capture = ::OpenCV::CvCapture::open
         else
           @capture = ::OpenCV::CvCapture::open source

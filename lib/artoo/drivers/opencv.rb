@@ -11,9 +11,9 @@ module Artoo
       end
 
       def detect_circles(lower, upper)
-        image = ::OpenCV::BGR2HSV(@image)
-        image = image.in_range(::OpenCV::CvScalar.new(lower[:b], lower[:g], lower[:r]), ::OpenCV::CvScalar.new(upper[:b], upper[:g], upper[:r]))
-        return image.hough_circles(::OpenCV::CV_HOUGH_GRADIENT, 2.0, 10, 200, 50)
+        tmp_image = ::OpenCV::BGR2HSV(@image)
+        tmp_image = tmp_image.in_range(::OpenCV::CvScalar.new(lower[:b], lower[:g], lower[:r]), ::OpenCV::CvScalar.new(upper[:b], upper[:g], upper[:r]))
+        return tmp_image.hough_circles(::OpenCV::CV_HOUGH_GRADIENT, 2.0, 10, 200, 50)
       end
       
       def draw_circles!(circles=[])

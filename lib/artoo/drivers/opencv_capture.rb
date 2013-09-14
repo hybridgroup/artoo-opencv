@@ -22,7 +22,11 @@ module Artoo
 
       def handle_frame
         frame = connection.capture.query
-        publish(event_topic_name("frame"), Artoo::Drivers::Opencv.new(frame)) if !frame.nil?
+        if !frame.nil?
+          publish(event_topic_name("frame"), Artoo::Drivers::Opencv.new(frame))
+        else
+          connection.connect
+        end
       end
 
     end
