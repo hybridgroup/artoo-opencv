@@ -4,25 +4,23 @@ module Artoo
   module Drivers
     # The opencv driver behaviors
     class Opencv < Driver
+      attr_accessor :image
+  
+      def initialize image
+        @image = image
+      end
 
-      # Start driver and any required connections
-      def start_driver
-        begin
-          every(interval) do
-            handle_message_events
-          end
-
-          super
-        rescue Exception => e
-          Logger.error "Error starting Opencv driver!"
-          Logger.error e.message
-          Logger.error e.backtrace.inspect
+      def detect_circles(lower, upper)
+        image = ::OpenCV::BGR2HSV(@image)
+        image = image.in_range(::OpenCV::CvScalar.new(lower[:b], lower[:g], lower[:r]), ::OpenCV::CvScalar.new(upper[:b], upper[:g], upper[:r]))
+        return image.hough_circles(::OpenCV::CV_HOUGH_GRADIENT, 2.0, 10, 200, 50)
+      end
+      
+      def draw_circles!(circles=[])
+        circles.each do |circle|
+          @image.circle! circle.center, circle.radius, :color => ::OpenCV::CvColor::Red, :thickness => 3
         end
       end
-
-      def handle_message_events         
-      end
-
     end
   end
 end
