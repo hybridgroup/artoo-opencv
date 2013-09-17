@@ -21,6 +21,20 @@ module Artoo
           @image.circle! circle.center, circle.radius, :color => ::OpenCV::CvColor::Red, :thickness => 3
         end
       end
+
+      def detect_faces(haar)
+        ::OpenCV::CvHaarClassifierCascade::load(haar).detect_objects(@image)
+      end
+
+      def draw_rectangles!(rectangles=[])
+        rectangles.each { |rect|
+          @image.rectangle! rect.top_left, rect.bottom_right, :color => ::OpenCV::CvColor::Red
+        }
+      end
+
+      def refresh
+        connection.connect
+      end
     end
   end
 end
