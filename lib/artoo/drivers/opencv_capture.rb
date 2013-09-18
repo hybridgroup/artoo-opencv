@@ -6,6 +6,9 @@ module Artoo
     # The opencv driver behaviors
     class OpencvCapture < Driver
 
+      COMMANDS = [:opencv].freeze
+
+      attr_accessor :opencv
       # Start driver and any required connections
       def start_driver
         begin
@@ -24,7 +27,8 @@ module Artoo
         if !connection.capture.nil?
           frame = connection.capture.query 
           if !frame.nil?
-            publish(event_topic_name("frame"), Artoo::Drivers::Opencv.new(frame))
+            @opencv = Artoo::Drivers::Opencv.new(frame)
+            publish(event_topic_name("frame"), @opencv) 
           else
             connection.connect
           end
