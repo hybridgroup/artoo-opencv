@@ -1,4 +1,5 @@
 require 'artoo/drivers/driver'
+require 'opencv'
 
 module Artoo
   module Drivers
@@ -6,7 +7,13 @@ module Artoo
 
       COMMANDS = [:image=].freeze
 
-      attr_accessor :image
+      attr_accessor :image, :window
+
+      def initialize(params={})
+        super
+        title = additional_params[:title] || ""
+        @window = ::OpenCV::GUI::Window.new(title)
+      end
 
       # Start driver and any required connections
       def start_driver
@@ -25,7 +32,7 @@ module Artoo
 
       def show_image
         begin
-          connection.window.show @image if !@image.nil?
+          window.show @image if !@image.nil?
           ::OpenCV::GUI::wait_key(1)
         rescue Exception => e
           Logger.error e.message

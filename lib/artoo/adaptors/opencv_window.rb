@@ -17,10 +17,7 @@ module Artoo
       # @return [Boolean]
       def connect
         require 'opencv' unless defined?(::OpenCV) 
-        title = additional_params[:title] || ""
-        @window = ::OpenCV::GUI::Window.new(title)
         super
-        return true
       end
 
       # Closes connection with device

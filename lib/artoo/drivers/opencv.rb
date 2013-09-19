@@ -28,7 +28,7 @@ module Artoo
 
       def draw_rectangles!(rectangles=[])
         rectangles.each { |rect|
-          @image.rectangle! rect.top_left, rect.bottom_right, :color => ::OpenCV::CvColor::Red
+          @image.rectangle! rect.top_left, rect.bottom_right, :color => ::OpenCV::CvColor::Red, :thickness => 3
         }
       end
 
