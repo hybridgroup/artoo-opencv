@@ -12,7 +12,7 @@ module Artoo
       def initialize(params={})
         super
         title = additional_params[:title] || ""
-        @window = ::OpenCV::GUI::Window.new(title)
+        @window = ::OpenCV::GUI::Window.new(title,2)
       end
 
       # Start driver and any required connections
@@ -28,7 +28,6 @@ module Artoo
           Logger.error e.backtrace.inspect
         end
       end
-
 
       def show_image
         begin
