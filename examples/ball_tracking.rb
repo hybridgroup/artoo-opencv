@@ -3,8 +3,8 @@ require 'artoo'
 connection :capture, :adaptor => :opencv_capture
 device :capture, :driver => :opencv_capture, :connection => :capture, :interval => 0.01
 
-connection :video, :adaptor => :opencv_window, :title => "Video"
-device :video, :driver => :opencv_window, :connection => :video, :interval => 0.01
+connection :video, :adaptor => :opencv_window
+device :video, :driver => :opencv_window, :connection => :video, :title => "Video", :interval => 0.01
 
 work do
   on capture, :frame => proc { |*value| 

@@ -3,8 +3,8 @@ require 'artoo'
 connection :capture, :adaptor => :opencv_capture, :source => "tcp://192.168.1.1:5555"
 device :capture, :driver => :opencv_capture, :connection => :capture, :interval => 0.025
 
-connection :video, :adaptor => :opencv_window, :title => "Video"
-device :video, :driver => :opencv_window, :connection => :video, :interval => 0.025
+connection :video, :adaptor => :opencv_window
+device :video, :driver => :opencv_window, :connection => :video, :title => "Video", :interval => 0.025
 
 connection :ardrone, :adaptor => :ardrone, :port => '192.168.1.1:5556'
 device :drone, :driver => :ardrone, :connection => :ardrone
