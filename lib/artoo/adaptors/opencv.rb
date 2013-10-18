@@ -5,14 +5,7 @@ module Artoo
     # Connect to a opencv device
     # @see device documentation for more information
     class Opencv < Adaptor
-      finalizer :finalize
       attr_reader :device
-
-      # Closes connection with device if connected
-      # @return [Boolean]
-      def finalize
-        disconnect if connected?
-      end
 
       # Creates a connection with device
       # @return [Boolean]
